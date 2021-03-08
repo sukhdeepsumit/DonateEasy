@@ -2,6 +2,7 @@ package com.app_devs.DonateEasy;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
@@ -16,6 +17,9 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -33,6 +37,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.hbb20.CountryCodePicker;
 import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
 import java.io.IOException;
@@ -47,6 +52,10 @@ public class LoginActivity extends AppCompatActivity {
 
     GoogleSignInButton googleSignInButton;
 
+    AppCompatButton getOTP;
+    EditText phoneNum;
+    CountryCodePicker countryCodePicker;
+
     private GoogleSignInClient myGoogleSignInClient;
     private final static int RC_SIGN_IN = 007;
 
@@ -59,6 +68,20 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getOTP=findViewById(R.id.getOTP);
+        getOTP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(LoginActivity.this,ProcessOTP.class);
+                intent.putExtra("phone",countryCodePicker.getFullNumberWithPlus().trim());
+                startActivity(intent);
+            }
+        });
+
+        countryCodePicker=findViewById(R.id.ccp);
+        phoneNum=findViewById(R.id.editTextTextPersonName);
+        countryCodePicker.registerCarrierNumberEditText(phoneNum);
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
