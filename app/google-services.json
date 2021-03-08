@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "479978100472",
+    "project_id": "donate-easy-51261",
+    "storage_bucket": "donate-easy-51261.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:479978100472:android:27ecd730590c51aab30d0d",
+        "android_client_info": {
+          "package_name": "com.app_devs.DonateEasy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "479978100472-h2mnlpr2eo5fk7huv37tlidskcnl50qp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7tUQHVYcnx1AgN9ybTfJdyQPBQbLpSTI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "479978100472-h2mnlpr2eo5fk7huv37tlidskcnl50qp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
