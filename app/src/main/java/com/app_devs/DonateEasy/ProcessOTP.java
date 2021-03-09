@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class ProcessOTP extends AppCompatActivity {
@@ -125,7 +126,6 @@ public class ProcessOTP extends AppCompatActivity {
                         } else {
                             // Sign in failed, display a message and update the UI
                             Toast.makeText(ProcessOTP.this, "Error", Toast.LENGTH_SHORT).show();
-
                         }
                     }
                 });
@@ -179,7 +179,7 @@ public class ProcessOTP extends AppCompatActivity {
         map.put("city", city);
         map.put("address", locality);
 
-        reference.document(mAuth.getCurrentUser().getUid()).set(map);
+        reference.document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).set(map);
     }
 
     @Override

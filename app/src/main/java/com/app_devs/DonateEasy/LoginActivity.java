@@ -51,7 +51,7 @@ import java.util.Locale;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
-    //push check
+    //push check again
 
     GoogleSignInButton googleSignInButton;
     ProgressDialog progressDialog;
