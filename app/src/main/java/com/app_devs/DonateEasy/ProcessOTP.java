@@ -155,6 +155,7 @@ public class ProcessOTP extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         locationProviderClient.getLastLocation().addOnCompleteListener(this, task -> {
             Location location = task.getResult();
             if (location != null) {
