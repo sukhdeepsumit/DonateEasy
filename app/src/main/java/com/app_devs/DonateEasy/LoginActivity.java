@@ -49,6 +49,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginActivity extends AppCompatActivity {
     //push check again
@@ -203,7 +204,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("city", city);
         map.put("address", locality);
 
-        reference.document(firebaseAuth.getCurrentUser().getUid()).set(map);
+        reference.document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).set(map);
     }
 
     @Override

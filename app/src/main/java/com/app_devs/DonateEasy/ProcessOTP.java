@@ -20,6 +20,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -40,6 +41,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+
+//debug
 
 public class ProcessOTP extends AppCompatActivity {
     EditText getOTP;
@@ -63,6 +66,8 @@ public class ProcessOTP extends AppCompatActivity {
         phoneNumber = getIntent().getStringExtra("phone");
 
         reference = FirebaseFirestore.getInstance().collection("Users");
+
+        locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         sendOTP();
         verify.setOnClickListener(new View.OnClickListener() {
