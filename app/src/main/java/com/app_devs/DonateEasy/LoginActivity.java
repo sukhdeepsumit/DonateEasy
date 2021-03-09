@@ -156,11 +156,12 @@ public class LoginActivity extends AppCompatActivity {
 
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getExactLocation();
         }
         else {
             ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            getExactLocation();
         }
-        getExactLocation();
     }
 
     private void getExactLocation() {

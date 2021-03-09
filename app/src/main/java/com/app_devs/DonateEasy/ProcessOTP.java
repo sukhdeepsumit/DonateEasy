@@ -141,6 +141,7 @@ public class ProcessOTP extends AppCompatActivity {
             getExactLocation();
         } else {
             ActivityCompat.requestPermissions(ProcessOTP.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+            getExactLocation();
         }
     }
 
