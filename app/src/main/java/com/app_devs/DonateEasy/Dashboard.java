@@ -17,6 +17,7 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
         logOut=findViewById(R.id.logOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -27,8 +28,5 @@ public class Dashboard extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 }

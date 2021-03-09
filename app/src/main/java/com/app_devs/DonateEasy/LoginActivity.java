@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -40,6 +41,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.hbb20.CountryCodePicker;
 import com.shobhitpuri.custombuttons.GoogleSignInButton;
 
+import org.w3c.dom.Document;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -51,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
     //push check
 
     GoogleSignInButton googleSignInButton;
+    ProgressDialog progressDialog;
 
     AppCompatButton getOTP;
     EditText phoneNum;
@@ -61,6 +65,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
+    private CollectionReference reference;
 
     private FusedLocationProviderClient locationProviderClient;
 
@@ -68,23 +73,27 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getOTP=findViewById(R.id.getOTP);
+
+        getOTP = findViewById(R.id.getOTP);
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LoginActivity.this,ProcessOTP.class);
-                intent.putExtra("phone",countryCodePicker.getFullNumberWithPlus().trim());
+                Intent intent = new Intent(LoginActivity.this, ProcessOTP.class);
+                intent.putExtra("phone", countryCodePicker.getFullNumberWithPlus().trim());
                 startActivity(intent);
             }
         });
 
-        countryCodePicker=findViewById(R.id.ccp);
-        phoneNum=findViewById(R.id.editTextTextPersonName);
-        countryCodePicker.registerCarrierNumberEditText(phoneNum);
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Logging you in ...");
 
+        countryCodePicker = findViewById(R.id.ccp);
+        phoneNum = findViewById(R.id.editTextTextPersonName);
+        countryCodePicker.registerCarrierNumberEditText(phoneNum);
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+        reference = firestore.collection("Users");
 
         googleSignInButton = findViewById(R.id.googleSignIn);
 
@@ -127,13 +136,16 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+        progressDialog.show();
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
+                //Log.i("CHECK_PLACE", "done");
                 //FirebaseUser user = firebaseAuth.getCurrentUser();
                 Intent intent = new Intent(getApplicationContext(), Dashboard.class);
+                getLocation();
+                progressDialog.dismiss();
                 finish();
-                //getLocation();
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Authentication Failed !!", Toast.LENGTH_SHORT).show();
@@ -144,13 +156,14 @@ public class LoginActivity extends AppCompatActivity {
     private void getLocation() {
         if (ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             getExactLocation();
-        } else {
+        }
+        else {
             ActivityCompat.requestPermissions(LoginActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
         }
     }
 
     private void getExactLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(LoginActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -160,6 +173,7 @@ public class LoginActivity extends AppCompatActivity {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
+
         locationProviderClient.getLastLocation().addOnCompleteListener(this, task -> {
             Location location = task.getResult();
             if (location != null) {
@@ -170,6 +184,8 @@ public class LoginActivity extends AppCompatActivity {
                     String country = String.valueOf(addresses.get(0).getCountryName());
                     String city = String.valueOf(addresses.get(0).getLocality());
                     String locality = String.valueOf(addresses.get(0).getAddressLine(0));
+
+                    Log.i("CITY_NAME", city);
 
                     addUser(country, city, locality);
                 }
@@ -187,7 +203,7 @@ public class LoginActivity extends AppCompatActivity {
         map.put("city", city);
         map.put("address", locality);
 
-        firestore.collection("Users").document().set(map);
+        reference.document(firebaseAuth.getCurrentUser().getUid()).set(map);
     }
 
     @Override
