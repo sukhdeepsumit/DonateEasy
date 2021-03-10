@@ -100,11 +100,11 @@ public class ProcessOTP extends AppCompatActivity {
                     return;
                 }
                 otp=    getInput1.getText().toString()+
-                        getInput2.getText().toString()+
-                        getInput3.getText().toString()+
-                        getInput4.getText().toString()+
-                        getInput5.getText().toString()+
-                        getInput6.getText().toString();
+                            getInput2.getText().toString()+
+                                getInput3.getText().toString()+
+                                    getInput4.getText().toString()+
+                                        getInput5.getText().toString()+
+                                             getInput6.getText().toString();
 
 
                     PhoneAuthCredential phoneAuthCredential = PhoneAuthProvider.getCredential(otpID, otp);
