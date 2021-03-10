@@ -62,7 +62,7 @@ public class Dashboard extends AppCompatActivity {
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseAuth.getInstance().signOut();
+                firebaseAuth.signOut();
                 Toast.makeText(Dashboard.this, "Logged Out", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
@@ -159,12 +159,6 @@ public class Dashboard extends AppCompatActivity {
                 getLocation();
             }
         }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        onResume();
     }
 
     @Override

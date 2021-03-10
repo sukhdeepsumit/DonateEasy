@@ -84,7 +84,7 @@ public class ProcessOTP extends AppCompatActivity {
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
 
         sendOTP();
-        setUpOtpInputs();
+
 
         verify.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -223,9 +223,11 @@ public class ProcessOTP extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                                progressBar.setVisibility(View.GONE);
+
                                 super.onCodeSent(s, forceResendingToken);
                                 otpID = s;
+                                setUpOtpInputs();
+                                progressBar.setVisibility(View.GONE);
                             }
 
                             @Override
