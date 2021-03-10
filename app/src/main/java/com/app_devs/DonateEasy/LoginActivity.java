@@ -17,6 +17,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -79,9 +80,16 @@ public class LoginActivity extends AppCompatActivity {
         getOTP.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ProcessOTP.class);
-                intent.putExtra("phone", countryCodePicker.getFullNumberWithPlus().trim());
-                startActivity(intent);
+                if(TextUtils.isEmpty(phoneNum.getText().toString()))
+                {
+                    phoneNum.setError("Empty field");
+                    phoneNum.requestFocus();
+                }
+                else {
+                    Intent intent = new Intent(LoginActivity.this, ProcessOTP.class);
+                    intent.putExtra("phone", countryCodePicker.getFullNumberWithPlus().trim());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -143,8 +151,8 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 //Log.i("CHECK_PLACE", "done");
                 //FirebaseUser user = firebaseAuth.getCurrentUser();
-                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 getLocation();
+                Intent intent = new Intent(getApplicationContext(), Dashboard.class);
                 progressDialog.dismiss();
                 finish();
                 startActivity(intent);

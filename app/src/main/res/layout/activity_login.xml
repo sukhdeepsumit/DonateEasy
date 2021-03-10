@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
 
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -16,10 +17,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".27"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0" />
-
+        app:layout_constraintVertical_bias="0.029" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -55,29 +56,41 @@
 
     </LinearLayout>
 
-    <com.hbb20.CountryCodePicker
-        android:id="@+id/ccp"
-        android:layout_width="115sp"
-        android:layout_height="43sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.465" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="280sp"
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="112dp"
-        android:ems="10"
-        android:hint="Login By Phone No."
-        android:inputType="number"
-        android:padding="15dp"
-        android:layout_marginEnd="30sp"
+        android:layout_marginBottom="336dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ccp"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <com.hbb20.CountryCodePicker
+            android:id="@+id/ccp"
+            android:layout_width="115sp"
+            android:layout_height="43sp"
+            android:layout_gravity="bottom"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.465" />
+
+        <EditText
+            android:id="@+id/editTextTextPersonName"
+            android:layout_width="280sp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30sp"
+            android:ems="10"
+            android:hint="Enter your mobile number..."
+            android:inputType="number"
+            android:padding="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ccp"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+    </LinearLayout>
 
     <com.shobhitpuri.custombuttons.GoogleSignInButton
         android:id="@+id/googleSignIn"
@@ -95,7 +108,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/getOTP"
-        android:layout_width="wrap_content"
+        android:layout_width="120sp"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:background="@drawable/rounded_button"
@@ -107,6 +120,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/layout1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
