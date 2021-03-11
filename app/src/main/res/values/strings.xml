@@ -2,4 +2,14 @@
     <string name="app_name">DonateEasy</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="or">or</string>
+    <string name="profile">Profile</string>
+    <string name="payment">Payment</string>
+    <string name="refer_to_friend">Refer to Friend</string>
+    <string name="toys">Toys</string>
+    <string name="sign_out">Sign out</string>
+    <string name="medicines">Medicines</string>
+    <string name="food">Food</string>
+    <string name="books">Books</string>
+    <string name="blood">Blood</string>
+    <string name="clothes">Clothes</string>
 </resources>

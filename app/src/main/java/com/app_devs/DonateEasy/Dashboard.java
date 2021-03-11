@@ -58,7 +58,7 @@ public class Dashboard extends AppCompatActivity {
 
         getLocation();
 
-        logOut = findViewById(R.id.logOut);
+       /* logOut = findViewById(R.id.logOut);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,7 +67,7 @@ public class Dashboard extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }
-        });
+        });*/
     }
 
     private void getLocation() {
