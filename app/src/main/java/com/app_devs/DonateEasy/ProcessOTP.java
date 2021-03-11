@@ -66,6 +66,8 @@ public class ProcessOTP extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
         mAuth = FirebaseAuth.getInstance();
 
+
+
         getInput1=findViewById(R.id.input1);
         getInput2=findViewById(R.id.input2);
         getInput3=findViewById(R.id.input3);
@@ -74,7 +76,6 @@ public class ProcessOTP extends AppCompatActivity {
         getInput6=findViewById(R.id.input6);
         verify = findViewById(R.id.verify);
         resend=findViewById(R.id.resend);
-
         phoneNumber = getIntent().getStringExtra("phone");
         TextView phoneText=findViewById(R.id.getPhone);
         phoneText.setText(phoneNumber);
@@ -82,8 +83,9 @@ public class ProcessOTP extends AppCompatActivity {
 
         reference = FirebaseFirestore.getInstance().collection("Users");
         locationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
         sendOTP();
+
+
 
 
         verify.setOnClickListener(new View.OnClickListener() {
@@ -91,10 +93,10 @@ public class ProcessOTP extends AppCompatActivity {
             public void onClick(View v) {
                 if(getInput1.getText().toString().trim().isEmpty()||
                         getInput2.getText().toString().trim().isEmpty()||
-                        getInput3.getText().toString().trim().isEmpty()||
-                        getInput4.getText().toString().trim().isEmpty()||
-                        getInput5.getText().toString().trim().isEmpty()||
-                        getInput6.getText().toString().trim().isEmpty())
+                            getInput3.getText().toString().trim().isEmpty()||
+                                 getInput4.getText().toString().trim().isEmpty()||
+                                     getInput5.getText().toString().trim().isEmpty()||
+                                            getInput6.getText().toString().trim().isEmpty())
                 {
                     Toast.makeText(ProcessOTP.this,"Invalid OTP",Toast.LENGTH_LONG).show();
                     return;
@@ -223,8 +225,6 @@ public class ProcessOTP extends AppCompatActivity {
                         .setCallbacks(new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                             @Override
                             public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-
-                                super.onCodeSent(s, forceResendingToken);
                                 otpID = s;
                                 setUpOtpInputs();
                                 progressBar.setVisibility(View.GONE);
@@ -259,7 +259,7 @@ public class ProcessOTP extends AppCompatActivity {
                             Toast.makeText(ProcessOTP.this, "Logged In", Toast.LENGTH_SHORT).show();
                         } else {
                             // Sign in failed, display a message and update the UI
-                            Toast.makeText(ProcessOTP.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ProcessOTP.this, "Please request another OTP", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

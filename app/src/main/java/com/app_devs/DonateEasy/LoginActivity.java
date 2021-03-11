@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, ProcessOTP.class);
                     intent.putExtra("phone", countryCodePicker.getFullNumberWithPlus().trim());
                     startActivity(intent);
-                    phoneNum.setText("");
                 }
             }
         });
