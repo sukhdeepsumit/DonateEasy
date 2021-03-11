@@ -8,21 +8,34 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,8 +48,11 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class Dashboard extends AppCompatActivity {
+
     AppCompatButton logOut;
 
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -45,6 +61,9 @@ public class Dashboard extends AppCompatActivity {
     FirebaseFirestore firestore;
     CollectionReference reference;
 
+    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
+
+    @SuppressLint("MissingPermission")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,8 +74,7 @@ public class Dashboard extends AppCompatActivity {
         reference = firestore.collection("Users");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
-
-        getLocation();
+        checkLocation();
 
        /* logOut = findViewById(R.id.logOut);
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -70,59 +88,40 @@ public class Dashboard extends AppCompatActivity {
         });*/
     }
 
-    private void getLocation() {
-        //check if permissions are given
-        if (checkPermissions()) {
-            //check if location isn't enabled
-            if (!isLocationEnabled()) {
-                Toast.makeText(this, "Please turn on your location", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                startActivityForResult(intent, 1);
-            }
-            else {
-                getAddress();
-            }
+    private void checkLocation() {
+        if (ActivityCompat.checkSelfPermission(Dashboard.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getLocation();
+            Log.i("PERMISSION_CHECK", "GRANTED");
         }
-        else { requestPermissions(); }
-    }
-
-    private boolean checkPermissions() {
-        return  ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.ACCESS_COARSE_LOCATION,
-                Manifest.permission.ACCESS_FINE_LOCATION },
-                44);
-    }
-
-    private boolean isLocationEnabled() {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        else {
+            ActivityCompat.requestPermissions(Dashboard.this, new String[] { Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+        }
     }
 
     @SuppressLint("MissingPermission")
-    private void getAddress() {
-        //getting last location from FusedLocationClient object
-        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
-            Location location = task.getResult();
-
+    private void getLocation() {
+        fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> {
+            Log.i("LOCATION_CHECK", String.valueOf(location));
+            try {
+                checkNullLocation(location);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (location != null) {
+                Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 try {
-                    Geocoder geocoder = new Geocoder(Dashboard.this, Locale.getDefault());
                     List<Address> addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
 
                     String country = String.valueOf(addresses.get(0).getCountryName());
                     String city = String.valueOf(addresses.get(0).getLocality());
                     String locality = String.valueOf(addresses.get(0).getAddressLine(0));
 
-                    Log.i("CITY_NAME", city);
+                    Log.i("CITY_CHECK", city);
 
                     addUser(country, city, locality);
                 }
                 catch (IOException e) {
-                    Toast.makeText(this, "Location error", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
                 }
             }
         });
@@ -135,19 +134,20 @@ public class Dashboard extends AppCompatActivity {
         map.put("city", city);
         map.put("address", locality);
 
-        reference.document(Objects.requireNonNull(firebaseAuth.getCurrentUser()).getUid()).set(map);
+        firestore.collection("Users").document().set(map);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    private void checkNullLocation(Location location) throws InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
 
-        if (resultCode == 1) {
-            switch (requestCode) {
-                case 1 : super.onResume();
-                break;
+        new Thread(() -> {
+            if (location == null) {
+                latch.countDown();
             }
-        }
+        }).start();
+
+        boolean done = latch.await(1, TimeUnit.SECONDS);
+        Log.i("DONE_LATCH", String.valueOf(done));
     }
 
     @Override
@@ -156,16 +156,9 @@ public class Dashboard extends AppCompatActivity {
 
         if (requestCode == 44) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                getLocation();
+                Log.i("PERMISSION_CHECK", "GRANTED");
+                checkLocation();
             }
-        }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (checkPermissions()) {
-            getLocation();
         }
     }
 }

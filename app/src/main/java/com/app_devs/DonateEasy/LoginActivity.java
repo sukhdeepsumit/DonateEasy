@@ -1,5 +1,6 @@
 package com.app_devs.DonateEasy;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -10,11 +11,14 @@ import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
@@ -29,8 +33,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.ResolvableApiException;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResponse;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,10 +77,15 @@ public class LoginActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
 
+    LocationSettingsRequest.Builder builder;
+    private final int REQUEST_CHECK_CODE = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        getLocation();
 
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -87,13 +102,12 @@ public class LoginActivity extends AppCompatActivity {
                     Intent intent = new Intent(LoginActivity.this, ProcessOTP.class);
                     intent.putExtra("phone", countryCodePicker.getFullNumberWithPlus().trim());
                     startActivity(intent);
-                    phoneNum.setText("");
                 }
             }
         });
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Logging you in ...");
+        progressDialog.setMessage("Khadjaa penchodd ...");
 
         countryCodePicker = findViewById(R.id.ccp);
         phoneNum = findViewById(R.id.editTextTextPersonName);
@@ -148,6 +162,43 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Toast.makeText(this, "Authentication Failed !!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void getLocation() {
+        LocationRequest request = new LocationRequest()
+                .setFastestInterval(1500)
+                .setInterval(3000)
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+
+        builder = new LocationSettingsRequest.Builder().addLocationRequest(request);
+
+        Task<LocationSettingsResponse> result =
+                LocationServices.getSettingsClient(this).checkLocationSettings(builder.build());
+
+        result.addOnCompleteListener(this, task -> {
+            try {
+                task.getResult(ApiException.class);
+            }
+            catch (ApiException e) {
+                switch (e.getStatusCode())
+                {
+                    case LocationSettingsStatusCodes.RESOLUTION_REQUIRED :
+                        try
+                        {
+                            ResolvableApiException resolvableApiException = (ResolvableApiException) e;
+                            resolvableApiException.startResolutionForResult(LoginActivity.this, REQUEST_CHECK_CODE);
+                        }
+                        catch (IntentSender.SendIntentException sendIntentException)
+                        {
+                            sendIntentException.printStackTrace();
+                        }
+                        catch (ClassCastException ignored) {  }
+                        break;
+                    case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE: break;
+                }
+                e.printStackTrace();
             }
         });
     }
