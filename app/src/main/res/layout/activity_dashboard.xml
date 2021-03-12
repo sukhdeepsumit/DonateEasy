@@ -12,11 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:paddingTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -91,7 +91,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="224dp"
+        android:layout_marginTop="204dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -169,7 +169,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="428dp"
+        android:layout_marginTop="400dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -250,33 +250,20 @@
         app:flow_verticalAlign="baseline"
         app:menu="@menu/bottom_navigation"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="710dp">
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="659dp">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/logOut"
-            android:layout_width="300sp"
-            android:layout_height="wrap_content"
-            android:background="@drawable/rounded_button"
-            android:elevation="10dp"
-            android:shadowColor="@color/black"
-            android:text="@string/sign_out"
-            android:textAllCaps="false"
-            android:textColor="#fff"
-            android:textSize="25sp"
-            android:visibility="invisible" />
+
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        tools:layout_editor_absoluteX="57dp"
-        tools:layout_editor_absoluteY="686dp"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-7dp"
 
 
         />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
