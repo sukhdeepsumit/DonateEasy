@@ -102,11 +102,6 @@ public class Dashboard extends AppCompatActivity {
     private void getLocation() {
         fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, location -> {
             Log.i("LOCATION_CHECK", String.valueOf(location));
-            try {
-                checkNullLocation(location);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
             if (location != null) {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
                 try {
@@ -137,7 +132,7 @@ public class Dashboard extends AppCompatActivity {
         firestore.collection("Users").document().set(map);
     }
 
-    private void checkNullLocation(Location location) throws InterruptedException {
+    /*private void checkNullLocation(Location location) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
 
         new Thread(() -> {
@@ -148,7 +143,7 @@ public class Dashboard extends AppCompatActivity {
 
         boolean done = latch.await(1, TimeUnit.SECONDS);
         Log.i("DONE_LATCH", String.valueOf(done));
-    }
+    }*/
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
