@@ -5,7 +5,7 @@
     <item
         android:id="@+id/Refer"
         android:icon="@drawable/ic_baseline_person_add_alt_1_24"
-        android:title="@string/refer_to_friend"/>
+        android:title="@string/refer_to_friend" />
     <item
         android:id="@+id/payment"
         android:icon="@drawable/ic_baseline_payments_24"

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -30,14 +29,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/clothes"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/clothes" />
@@ -51,7 +48,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/clothes"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -65,14 +62,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/blood"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/blood" />
@@ -86,7 +81,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/blood"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -96,7 +91,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="184sp"
+        android:layout_marginTop="204dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -112,14 +107,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/books"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/book" />
@@ -133,7 +126,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/books"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -147,14 +140,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/foods"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/groceries" />
@@ -168,7 +159,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/food"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -176,9 +167,10 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="360sp"
+        android:layout_marginTop="400dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -194,14 +186,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/medicine"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/medicine" />
@@ -215,7 +205,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/medicines"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -229,14 +219,12 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:elevation="15sp"
-                android:background="@drawable/layout_bg">
+                android:layout_height="match_parent">
 
                 <ImageView
                     android:id="@+id/toys"
-                    android:layout_width="92sp"
-                    android:layout_height="92sp"
+                    android:layout_width="94dp"
+                    android:layout_height="99dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="15dp"
                     app:srcCompat="@drawable/toys" />
@@ -250,7 +238,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/toys"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -263,18 +251,22 @@
         app:flow_verticalAlign="baseline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:elevation="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation"
         tools:ignore="MissingConstraints">
+
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="-7dp"
+
+
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
