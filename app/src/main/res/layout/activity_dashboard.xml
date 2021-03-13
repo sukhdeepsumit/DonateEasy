@@ -94,7 +94,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="204dp"
+        android:layout_marginTop="184sp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -176,7 +176,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="360sp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
