@@ -12,4 +12,6 @@
     <string name="books">Books</string>
     <string name="blood">Blood</string>
     <string name="clothes">Clothes</string>
+
+    <String name="API_KEY">AIzaSyDtx7trE9-oM8lfqahoYQQ9ovhn6hal554</String>
 </resources>

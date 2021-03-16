@@ -1,45 +1,23 @@
-package com.app_devs.DonateEasy;
+package com.app_devs.DonateEasy.Users;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.Settings;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
 
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.common.api.ResolvableApiException;
+import com.app_devs.DonateEasy.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.location.LocationSettingsResponse;
-import com.google.android.gms.location.LocationSettingsStatusCodes;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.IOException;
@@ -47,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -59,9 +36,7 @@ public class Dashboard extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
-    CollectionReference reference;
 
-    protected static final int REQUEST_CHECK_SETTINGS = 0x1;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -71,7 +46,6 @@ public class Dashboard extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
-        reference = firestore.collection("Users");
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         checkLocation();
@@ -135,19 +109,20 @@ public class Dashboard extends AppCompatActivity {
         map.put("city", city);
         map.put("address", locality);
 
-        firestore.collection("Users").document().set(map);
+        String uid = firebaseAuth.getCurrentUser().getUid();
+        firestore.collection("Users").document(uid).set(map);
     }
 
     private void checkNullLocation(Location location) throws InterruptedException {
         final CountDownLatch latch = new CountDownLatch(1);
 
         new Thread(() -> {
-            if (location == null) {
+            if (location != null) {
                 latch.countDown();
             }
         }).start();
 
-        boolean done = latch.await(1, TimeUnit.SECONDS);
+        boolean done = latch.await(1, TimeUnit.MINUTES);
         Log.i("DONE_LATCH", String.valueOf(done));
     }
 
