@@ -30,6 +30,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Dashboard extends AppCompatActivity {
 
+    //commit check
     AppCompatButton logOut;
 
     FusedLocationProviderClient fusedLocationProviderClient;
