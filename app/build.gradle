@@ -46,13 +46,19 @@ dependencies {
     implementation 'com.hbb20:ccp:2.4.5'
 
 
-    implementation 'com.google.android.gms:play-services-location:10.2.1'
-    implementation 'com.google.android.gms:play-services-places:10.2.1'
+
+    implementation 'com.google.android.gms:play-services-places:17.0.0'
     implementation 'com.google.code.gson:gson:2.7'
     implementation 'com.squareup.retrofit2:retrofit:2.1.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.4.1'
-    implementation 'com.squareup.okhttp3:okhttps:3.4.1'
+    // define a BOM and its version
+    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.0"))
+
+    // define any required OkHttp artifacts without version
+    implementation("com.squareup.okhttp3:okhttp")
+    implementation("com.squareup.okhttp3:logging-interceptor")
+
+
     implementation 'io.nlopez.smartlocation:library:3.3.1'
 
     testImplementation 'junit:junit:4.13.2'
