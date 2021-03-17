@@ -7,12 +7,14 @@ import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.RelativeLayout;
 
 import com.app_devs.DonateEasy.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -38,6 +40,8 @@ public class Dashboard extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firestore;
 
+    RelativeLayout clothes;
+
 
     @SuppressLint("MissingPermission")
     @Override
@@ -61,6 +65,12 @@ public class Dashboard extends AppCompatActivity {
                 finish();
             }
         });*/
+
+        clothes = findViewById(R.id.clothes_layout);
+        clothes.setOnClickListener(view -> {
+            startActivity(new Intent(getApplicationContext(), DisplayNGO.class).putExtra("ngo", "clothes"));
+            finish();
+        });
     }
 
     private void checkLocation() {

@@ -1,4 +1,5 @@
 <resources>
+    <String name="API_KEY">AIzaSyDtx7trE9-oM8lfqahoYQQ9ovhn6hal554</String>
     <string name="app_name">DonateEasy</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="or">or</string>
@@ -11,7 +12,6 @@
     <string name="food">Food</string>
     <string name="books">Books</string>
     <string name="blood">Blood</string>
-    <string name="clothes">Clothes</string>
 
-    <String name="API_KEY">AIzaSyDtx7trE9-oM8lfqahoYQQ9ovhn6hal554</String>
+    <string name="clothes">Clothes</string>
 </resources>

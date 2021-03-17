@@ -28,6 +28,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/clothes_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -61,6 +62,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/blood_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -106,6 +108,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/books_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -139,6 +142,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/food_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -185,6 +189,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/medicines_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -218,6 +223,7 @@
             android:padding="10dp">
 
             <RelativeLayout
+                android:id="@+id/toys_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
