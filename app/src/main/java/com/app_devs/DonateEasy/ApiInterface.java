@@ -17,5 +17,7 @@ public interface ApiInterface {
 
 
     @GET("distancematrix/json") // origins/destinations:  LatLng as string
-    Call<ResultantDistanceMatrix> getDistance(@Query("key") String key, @Query("origins") String origins, @Query("destinations") String destinations);
+    Call<ResultantDistanceMatrix> getDistance(@Query("key") String key,
+                                              @Query("origins") String origins,
+                                              @Query("destinations") String destinations);
 }

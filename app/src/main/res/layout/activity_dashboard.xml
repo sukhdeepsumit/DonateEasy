@@ -49,7 +49,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/clothes"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -83,7 +83,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/blood"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -129,7 +129,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/books"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -163,7 +163,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/food"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -210,7 +210,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/medicines"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
@@ -244,7 +244,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/aclonica"
                     android:text="@string/toys"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
             </RelativeLayout>
         </androidx.cardview.widget.CardView>

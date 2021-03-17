@@ -12,12 +12,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.app_devs.DonateEasy.ApiInterface;
+import com.app_devs.DonateEasy.MyProfile;
 import com.app_devs.DonateEasy.PlacesPOJO;
 import com.app_devs.DonateEasy.R;
+import com.google.android.gms.maps.model.Dash;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +41,7 @@ public class DisplayNGO extends AppCompatActivity {
     private ArrayList<String> permissionsRejected = new ArrayList<>();
     private ArrayList<String> permissions = new ArrayList<>();
     private final static int ALL_PERMISSIONS_RESULT = 101;
+
     List<StoreModel> storeModels;
     ApiInterface apiService;
 
@@ -44,6 +50,8 @@ public class DisplayNGO extends AppCompatActivity {
 
     RecyclerView recyclerView;
     List<PlacesPOJO.CustomA> results;
+
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,12 +66,10 @@ public class DisplayNGO extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (permissionsToRequest.size() > 0) {
                 requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
-            }
-            else {
+            } else {
                 fetchLocation();
             }
-        }
-        else {
+        } else {
             fetchLocation();
         }
 
@@ -170,7 +176,7 @@ public class DisplayNGO extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
                             showMessageOKCancel(
-                                    (DialogInterface.OnClickListener) (dialog, which) -> {
+                                    (dialog, which) -> {
                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                                             requestPermissions(permissionsRejected.toArray(new String[permissionsRejected.size()]), ALL_PERMISSIONS_RESULT);
                                         }
@@ -232,10 +238,48 @@ public class DisplayNGO extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResultantDistanceMatrix> call, Throwable t) {
-                call.cancel();
-            }
+            public void onFailure(Call<ResultantDistanceMatrix> call, Throwable t) { call.cancel(); }
         });
+    }
 
+    private void checkUserExists() {
+        firebaseFirestore.collection("Users")
+                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (!task.getResult().exists()) {
+                            messageAlert();
+                        }
+                    }
+                });
+    }
+
+    private void messageAlert() {
+        new AlertDialog.Builder(this)
+                .setTitle("Location Error")
+                .setMessage("We cannot get your location\nDo you want to set it manually ?")
+                .setPositiveButton("YES", (dialogInterface, i) -> {
+                    startActivity(new Intent(getApplicationContext(), MyProfile.class));
+                    finish();
+                })
+                .setNegativeButton("NO", (dialogInterface, i) -> {
+                    startActivity(new Intent(getApplicationContext(), Dashboard.class));
+                    finish();
+                })
+                .show();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        checkUserExists();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(getApplicationContext(), Dashboard.class));
+        finish();
     }
 }
