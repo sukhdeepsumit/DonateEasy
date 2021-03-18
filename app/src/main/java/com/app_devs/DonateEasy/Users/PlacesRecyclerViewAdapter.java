@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.app_devs.DonateEasy.PlaceOnMapFragment;
 import com.app_devs.DonateEasy.R;
 import com.google.android.gms.location.places.Place;
 
