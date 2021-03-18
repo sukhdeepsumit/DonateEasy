@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DonateEasy">
-        <activity android:name=".MyProfile"></activity>
+        <activity android:name=".MyProfile" />
         <activity android:name=".Users.DisplayNGO" />
         <activity android:name=".ProcessOTP" />
         <activity android:name=".Users.Dashboard" />
@@ -27,6 +27,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyDtx7trE9-oM8lfqahoYQQ9ovhn6hal554"/>
     </application>
     <uses-permission android:name="android.hardware.location.gps" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
