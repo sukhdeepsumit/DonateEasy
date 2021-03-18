@@ -45,6 +45,7 @@ public class PlaceOnMapFragment  extends Fragment implements OnMapReadyCallback 
         return view;
     }
 
+    //commit check
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
