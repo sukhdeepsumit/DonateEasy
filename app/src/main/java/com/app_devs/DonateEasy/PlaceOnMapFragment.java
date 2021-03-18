@@ -1,13 +1,13 @@
 package com.app_devs.DonateEasy;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.fragment.app.Fragment;
+
+import com.app_devs.DonateEasy.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -17,7 +17,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class PlaceOnMapFragment extends Fragment implements OnMapReadyCallback {
+public class PlaceOnMapFragment  extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private double lng;
@@ -28,7 +28,7 @@ public class PlaceOnMapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_place_on_map_fragment,
+        View view = inflater.inflate(R.layout.fragment_place_on_map,
                 container, false);
 
         if(getArguments() != null){
